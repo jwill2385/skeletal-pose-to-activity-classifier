@@ -13,5 +13,5 @@ The input dataframe are parquet files with the following columns of interest:
 
 
 ## Model Architecture
-We used a encoder-decoder transformer as outlined in transformer kfold.ipynb file and a Graph Convolutional Network with GRU temporal encodings as outlined in GCN kfold.ipynb file. For the GCN we define nodes as the skeletal joint coordinates and edges as the limb connections between joints.
+We used a encoder-decoder transformer as outlined in transformer_kfold.ipynb file and a Graph Convolutional Network with GRU temporal encodings as outlined in GCN_kfold.ipynb file. For the GCN we define nodes as the skeletal joint coordinates and edges as the limb connections between joints.
 
