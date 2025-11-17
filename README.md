@@ -5,7 +5,7 @@ Code repository for Effects of Variable Pose Input on Neural Network Model Perfo
 This repository contains code for stratified KFold training of both the GCN and Transformer models outlined in the paper. Note: the same model architectures were applied to each of the joint combinations tested along with hyperparameter tuning in order to determine the best joint combinations to apply stratified KFold analysis.
 
 ## Data Format
-The data used in this analysis is confidential and owned by the NBA. It contains skeletal tracking data where each row is a separate basketbal event. This work analyzes classifying dribbles, passes, shots, and rebounds over a 21 frame window using a wide variety of different joint combinations to analyze the impact of reducing joints on classification model performance. 155 different joint combinations were tested and we analyzed over 400,000 event occurences.
+The data used in this analysis is confidential and owned by the NBA. It contains skeletal tracking data where each row is a separate basketbal event. This work analyzes classifying dribbles, passes, shots, and rebounds over a 21 frame window using a wide variety of different joint combinations to analyze the impact of reducing joints on classification model performance. For this paper, 155 different joint combinations were tested and we analyzed over 400,000 event occurences.
 
 The input dataframe are parquet files with the following columns of interest:
 
