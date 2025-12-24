@@ -2,10 +2,12 @@
 Code repository for Effects of Variable Pose Input on Neural Network Model Performance for Classifying Basketball Player Activity research paper.
 
 
-This repository contains code for stratified KFold training of both the GCN and encoder-decoder transformer models outlined in the paper. Note: the same model architectures were applied to each of the joint combinations tested along with hyperparameter tuning in order to determine the best joint combinations to apply stratified KFold analysis.
+This repository contains code for stratified KFold training of both the Graph Convolutional Network (GCN) and encoder-decoder transformer models outlined in the paper. Note: the same model architectures were applied to each of the joint combinations tested along with hyperparameter tuning in order to determine the best joint combinations to apply stratified KFold analysis.
 
 ## Data Format
-The data used in this analysis is confidential and owned by the NBA. It contains skeletal tracking data where each row is a separate basketbal event. This work analyzes classifying dribbles, passes, shots, and rebounds over a 21 frame window using a wide variety of different joint combinations to analyze the impact of reducing joints on classification model performance. For this paper, 155 different joint combinations were tested and we analyzed over 400,000 event occurences.
+The data used in this analysis is confidential and owned by the NBA. 
+
+It contains skeletal tracking data where each row is a separate basketbal event. This work analyzes classifying dribbles, passes, shots, and rebounds over a 21 frame window using a wide variety of different joint combinations to analyze the impact of reducing joints on classification model performance. For this paper, 155 different joint combinations were tested and we analyzed over 400,000 event occurences.
 
 The input dataframe are parquet files with the following columns of interest:
 
@@ -16,7 +18,7 @@ The input dataframe are parquet files with the following columns of interest:
 We used a encoder-decoder transformer as outlined in transformer_kfold.ipynb file and a Graph Convolutional Network with GRU temporal encodings as outlined in GCN_kfold.ipynb file. For the GCN we define nodes as the skeletal joint coordinates and edges as the limb connections between joints.
 
 ## Hyperparameter Tuning
-We used the software package Optuna to run 20 trials for each joint pair combination to determine optimal hyperparameters to train each model. 
+We used the software package Optuna to run 20 trials with varying hyperparameters for each joint pair combination to determine optimal configurations to train each model. 
 - **Transformer search space**
   - `Embedding Dimensions (d_model) ∈ {64, 128, 256, 512}`
   - `Number of Attention Heads (n_head) ∈ {4, 8, 16}`
@@ -30,7 +32,7 @@ We used the software package Optuna to run 20 trials for each joint pair combina
   - `learning rate` searched on a **log-uniform range** `[1e-5, 1e-3]`
   - `batch size ∈ {16, 32, 64}`
 
-## Model Parameters
+## Learnable Model Parameters
 For the encoder-decoder transformer model and for the GCN model, the total number of learnable parameters varied depending on which hyperparamters were selected for each joint pair combination.
 - **Transformer (encoder–decoder)**
   - Learnable Parameter Range: **0.86 million to 23.16 million**
@@ -39,6 +41,6 @@ For the encoder-decoder transformer model and for the GCN model, the total numbe
 
 - **GCN**
   - Learnable Parameter Range: **0.04 million to 0.63 million**
-  - Smallest: `hidden_dim=64` ≈ **0.04 million**
-  - Largest: `hidden_dim=256` ≈ **0.63 million**
+  - Smallest: **singular joint**; `hidden_dim=64` ≈ **0.04 million**
+  - Largest: **16 joints**; `hidden_dim=256` ≈ **0.63 million**
 
