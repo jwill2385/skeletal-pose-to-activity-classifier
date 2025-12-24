@@ -16,16 +16,16 @@ The input dataframe are parquet files with the following columns of interest:
 We used a encoder-decoder transformer as outlined in transformer_kfold.ipynb file and a Graph Convolutional Network with GRU temporal encodings as outlined in GCN_kfold.ipynb file. For the GCN we define nodes as the skeletal joint coordinates and edges as the limb connections between joints.
 
 ## Hyperparameter Tuning
-We use the software package Optuna for each joint pair combination to determine optimal hyperparameters to train each model. 
+We used the software package Optuna for each joint pair combination to determine optimal hyperparameters to train each model. 
 - **Transformer search space**
-  - `d_model ∈ {64, 128, 256, 512}`
-  - `n_head ∈ {4, 8, 16}`
-  - `num_layers ∈ {2, 4, 6}`
+  - `Embedding Dimensions (d_model) ∈ {64, 128, 256, 512}`
+  - `Number of Attention Heads (n_head) ∈ {4, 8, 16}`
+  - `Number of layers (num_layers) ∈ {2, 4, 6}`
   - `learning rate` searched on a **log-scaled range** `[1e-5, 1e-3]`
   - `batch size = 64` (fixed)
   - `dropout = 0.1` (fixed)
 - **GCN search space**
-  - `hidden_dim ∈ {64, 128, 256}`
+  - `Number of Hidden Dimensions (hidden_dim) ∈ {64, 128, 256}`
   - `dropout ∈ [0.1, 0.3]` 
   - `learning rate` searched on a **log-scaled range** `[1e-5, 1e-3]`
   - `batch size ∈ {16, 32, 64}`
@@ -33,12 +33,12 @@ We use the software package Optuna for each joint pair combination to determine 
 ## Model Parameters
 For the encoder-decoder transformer model and for the GCN model, the total number of learnable parameters varied depending on which hyperparamters were selected for each joint pair combination.
 - **Transformer (encoder–decoder)**
-  - Learnable Parameter Range: **0.86 M → 23.16 M**
-  - Smallest: **singular joint (6 features)**; `d_model=64`, `num_layers=2`, `n_head=4` → ~**0.86 M**
-  - Largest: **16 joints (51 features)**; `d_model=512`, `num_layers=6`, `n_head=16` → ~**23.16 M**
+  - Learnable Parameter Range: **0.86 milliom → 23.16 million**
+  - Smallest: **singular joint (6 input features)**; `d_model=64`, `num_layers=2`, `n_head=4` ≈ **0.86 million**
+  - Largest: **16 joints (51 input features)**; `d_model=512`, `num_layers=6`, `n_head=16` ≈ **23.16 million**
 
 - **GCN**
-  - Learnable Parameter Range: **0.04 M → 0.63 M**
-  - Smallest: `hidden_dim=64` → ~**0.04 M**
-  - Largest: `hidden_dim=256` → ~**0.63 M**
+  - Learnable Parameter Range: **0.04 million → 0.63 million**
+  - Smallest: `hidden_dim=64` ≈ **0.04 million**
+  - Largest: `hidden_dim=256` ≈ **0.63 million**
 
