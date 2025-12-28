@@ -13,6 +13,25 @@ The input dataframe are parquet files with the following columns of interest:
 
 ['game_id', 'stadium_id', 'player_id', 'team_id', 'event_seq_id', 'event_type', 'ball_position', 'player_com', 'pose_data', 'label']
 
+## Requirements
+In order to run each model, the following requirement packages should be installed using the command below:
+```
+pip install torch torch-geometric optuna scikit-learn pandas numpy matplotlib
+```
+Individual Packages include:
+* torch
+
+* torch-geometric
+
+* optuna
+
+* scikit-learn
+
+* pandas
+
+* numpy
+
+* matplotlib
 
 ## Model Architecture
 We used a encoder-decoder transformer as outlined in transformer_kfold.ipynb file and a Graph Convolutional Network with GRU temporal encodings as outlined in GCN_kfold.ipynb file. For the GCN we define nodes as the skeletal joint coordinates and edges as the limb connections between joints.
@@ -25,10 +44,10 @@ We used the software package Optuna to run 20 trials with varying hyperparameter
   - `Number of Layers (num_layers) ∈ {2, 4, 6}`
   - `learning rate` searched on a **log-uniform range** `[1e-5, 1e-3]`
   - `batch size = 64` (fixed)
-  - `dropout = 0.1` (fixed)
+  - `dropout rate = 0.1` (fixed)
 - **GCN search space**
   - `Number of Hidden Dimensions (hidden_dim) ∈ {64, 128, 256}`
-  - `dropout ∈ [0.1, 0.3]` 
+  - `dropout rate ∈ [0.1, 0.3]` 
   - `learning rate` searched on a **log-uniform range** `[1e-5, 1e-3]`
   - `batch size ∈ {16, 32, 64}`
 
